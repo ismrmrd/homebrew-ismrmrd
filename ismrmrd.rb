@@ -2,9 +2,9 @@ require "formula"
 
 class Ismrmrd < Formula
   homepage "https://ismrmrd.github.io"
-  url "https://github.com/ismrmrd/ismrmrd/releases/download/v1.1.0-beta-1/ismrmrd-1.1.0-beta-1.tar.gz"
-  sha1 "a7e0e20114e9388ca09ef76343054c6ca9d3203c"
-  version "1.1.0-beta-1"
+  url "https://github.com/ismrmrd/ismrmrd/archive/v1.2.0.tar.gz"
+  sha1 "767e846d6bf53391085647a27f785989dd05561e"
+  #version "1.2.0"
 
   depends_on 'cmake' => :build
   depends_on 'git'
@@ -22,21 +22,17 @@ class Ismrmrd < Formula
         system "make", "install"
     end
 
-    if build.with? 'python'
-      cd 'bindings/python' do
-        system 'python', 'setup.py', 'install', "--prefix=#{prefix}"
+    if build.with? "python"
+      cd "bindings/python" do
+        system "python", *Language::Python.setup_install_args(prefix)
       end
     end
   end
 
-  #test do
-  #    system "#{bin}/ismrmrd_create_dataset"
-  #    system "#{bin}/ismrmrd_recon_dataset", "testdata.h5", "#{prefix}/schema/ismrmrd.xsd"
-  #end
-
-  #test do
-  #    make test
-  #end
+  test do
+      system "#{bin}/ismrmrd_generate_cartesian_shepp_logan"
+      system "#{bin}/ismrmrd_recon_cartesian_2d", "testdata.h5"
+  end
 
   def caveats; <<-EOS.undent
     Export the following environment variable in your shell profile:
