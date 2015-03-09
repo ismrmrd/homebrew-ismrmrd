@@ -2,8 +2,8 @@ require "formula"
 
 class Ismrmrd < Formula
   homepage "https://ismrmrd.github.io"
-  url "https://github.com/ismrmrd/ismrmrd/archive/v1.2.0.tar.gz"
-  sha1 "767e846d6bf53391085647a27f785989dd05561e"
+  url "https://github.com/ismrmrd/ismrmrd/archive/v1.2.3.tar.gz"
+  sha1 "c58a45d05f6b2b58f46f49d5be67ee5f95bc2378"
 
   depends_on 'cmake' => :build
   depends_on 'hdf5'
